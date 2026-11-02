@@ -1,0 +1,11 @@
+# Bayesian network modelling and inference (Variable Elimination)
+pgmpy>=0.1.25
+
+# Google Calendar API client + OAuth flow
+google-api-python-client>=2.100.0
+google-auth-oauthlib>=1.2.0
+google-auth-httplib2>=0.2.0
+
+# Pulled in by pgmpy, listed explicitly since the CPT code uses them directly
+numpy>=1.24
+pandas>=2.0
