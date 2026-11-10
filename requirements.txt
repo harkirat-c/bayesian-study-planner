@@ -1,5 +1,5 @@
 # Bayesian network modelling and inference (Variable Elimination)
-pgmpy>=0.1.25
+pgmpy>=1.0
 
 # Google Calendar API client + OAuth flow
 google-api-python-client>=2.100.0
