@@ -17,7 +17,7 @@ utility of three actions and takes the best one:
 Different simulated students (struggling vs. advanced) are run through the
 same model to show the chosen action changes with the evidence.
 
-Full assignment brief: [project-description.md](project-description.md)
+Full assignment brief: [project-description.md](docs/project-description.md)
 
 ## Repo layout
 
