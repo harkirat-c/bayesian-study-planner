@@ -38,12 +38,11 @@ them all picks the same action. What does matter is the ratio between the two
 effects — passing is worth 80 to 90 points, the worst stress swing is 40, so
 success is worth roughly twice the most stress can cost.
 
-That uneven stress cost, 30 against 40, is also what stops the table being
-separable. If stress cost the same whether you passed or failed, the utility
-would split into one term for `Success` and one for `Stress`, and the two
-marginals would be enough. It doesn't, so the joint posterior is the strictly
-correct input — see [the sensitivity section](#sensitivity) for how much that
-turns out to be worth in practice.
+The uneven stress cost, 30 against 40, also stops the table being separable.
+If stress cost the same either way, the utility would split into a `Success`
+term and a `Stress` term and the two marginals would be enough. It doesn't, so
+the joint is the right input — [how much that matters](#sensitivity) is
+measured below.
 
 ## Expected utility
 
@@ -139,6 +138,5 @@ still true. The measured effect, though, is small: computing EU from the
 product of the marginals instead shifts it by at most **0.249**, against
 margins of about 2.3, and picks the same action for both students.
 
-So the joint is the correct input and it's free — `query()` already returns it
-— but in this model the dependence is too weak to change a decision. Better to
-say that than to overclaim it.
+The joint is still the right input and it's free, since `query()` returns it
+anyway. The dependence here is just too weak to change the answer.

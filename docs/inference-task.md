@@ -38,13 +38,11 @@ passing *while* stressed, which is the combination the utility is meant to
 punish. The network says `P(pass | Stress=high) = 0.683` against
 `P(pass) = 0.744`. So `query()` returns pgmpy's joint factor untouched.
 
-Week 11 measured what that's actually worth, once there was a utility function
-to feed. With the table in [utility-and-actions.md](utility-and-actions.md),
-computing expected utility from the product of the marginals instead shifts it
-by at most 0.249 and picks the same action for both students. The joint is
-still what expected utility strictly needs and it costs nothing, but the
-dependence here is too weak to change a decision — worth stating plainly
-rather than overclaiming.
+Week 11 measured what that's worth once there was a utility function to feed.
+With the table in [utility-and-actions.md](utility-and-actions.md), using the
+product of the marginals instead shifts EU by at most 0.249 and picks the same
+action for both students. The joint is still the right input and it's free,
+but the dependence here is too weak to change a decision.
 
 ## Evidence
 

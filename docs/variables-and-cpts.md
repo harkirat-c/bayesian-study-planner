@@ -69,7 +69,7 @@ matters and the 8 columns take 4 values.
 
 The first two hard concepts cost 0.25 each off `high`, the third only 0.10 —
 there isn't much left up there by then. Three hard concepts still leaves 0.10
-on `high`: difficulty is evidence about a student, not a verdict.
+on `high` - hard material makes low mastery likely, not certain.
 
 ### `P(Prep | Mastery, Action)`
 
@@ -137,15 +137,16 @@ Prep swings `P(pass)` from 0.25 to 0.95. Stress costs at most 0.25, worst at
 
 ## What falls out
 
-Numbers from [src/inference.py](../src/inference.py).
+Numbers from the model, via [src/inference.py](../src/inference.py).
 
 - The students separate. Under `intense`, struggling gets `P(pass) = 0.467`,
   advanced gets 0.744.
 - Intense isn't always best. For the advanced student at `Days=far` it scores
   0.744, below `light` (0.824) and `rest` (0.807): their prep barely moves
   (0.80 vs 0.65 on `high`) while burnout pushes high stress to 0.60. Intense
-  loses on both axes there, so no utility weights can pick it in Week 10 —
-  which is how rest days become reachable at all.
+  loses on both axes there, so no utility weights can pick it — which is how
+  the advanced student ends up with a rest day, in
+  [utility-and-actions.md](utility-and-actions.md).
 
 ## Known gaps
 
