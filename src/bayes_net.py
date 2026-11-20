@@ -1,11 +1,9 @@
 """Bayesian network for the study planner.
 
-Three concept difficulties (D1-D3) feed the student's Mastery. Today's Action
-and the days left before the exam (Days) then decide Preparedness and Stress,
-which together determine exam Success.
+Three concept difficulties (D1-D3) feed Mastery. Today's Action and the days
+left (Days) decide Prep and Stress, which together decide Success.
 
-The CPT numbers below are handcrafted; docs/variables-and-cpts.md explains
-where each table comes from.
+The CPT numbers are handcrafted; docs/variables-and-cpts.md explains them.
 """
 
 from pgmpy.factors.discrete import TabularCPD
@@ -27,8 +25,6 @@ def build_model():
         ]
     )
 
-    # D1-D3, Days and Action are always supplied as evidence, so these priors
-    # are only placeholders to make the network complete.
     difficulties = [
         TabularCPD(c, 2, [[0.5], [0.5]], state_names={c: ["easy", "hard"]})
         for c in ("D1", "D2", "D3")
@@ -46,8 +42,6 @@ def build_model():
         state_names={"Action": ["intense", "light", "rest"]},
     )
 
-    # Mastery drops as more of the three concepts are hard. Only the number of
-    # hard concepts matters, so the table is symmetric in D1-D3.
     mastery = TabularCPD(
         "Mastery",
         3,
@@ -66,9 +60,6 @@ def build_model():
         },
     )
 
-    # Preparedness rises with mastery, and within each mastery level
-    # intense > light > rest. Studying hard helps a weak student far more than
-    # an already-prepared one.
     prep = TabularCPD(
         "Prep",
         3,
@@ -86,9 +77,6 @@ def build_model():
         },
     )
 
-    # Stress depends on whether the action suits the deadline: a 5-hour block
-    # is worst when the exam is still far off (burnout), while resting is
-    # relaxing then but alarming when the exam is imminent.
     stress = TabularCPD(
         "Stress",
         3,
@@ -106,8 +94,6 @@ def build_model():
         },
     )
 
-    # Passing is driven mainly by preparedness, with stress as a real but
-    # smaller penalty.
     success = TabularCPD(
         "Success",
         2,

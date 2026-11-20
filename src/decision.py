@@ -1,9 +1,20 @@
-"""
-Decision making.
+"""Expected utility of each action, and the action to take.
 
-For each action in actions.py:
-  - run inference with that action applied as evidence
-  - compute the expected utility over the resulting posterior
-Then pick the action with the highest expected utility and return it along
-with the per-action numbers, so the choice can be shown and explained.
+Runs inference with the action applied as evidence, then scores the resulting
+joint posterior with the utility table. docs/utility-and-actions.md explains
+the method and the numbers.
 """
+
+from actions import ACTIONS
+from inference import query
+from utility import UTILITY
+
+
+def expected_utility(model, evidence, action):
+    joint = query(model, {**evidence, "Action": action})
+    return sum(joint.get_value(Success=s, Stress=t) * u for (s, t), u in UTILITY.items())
+
+
+def decide(model, evidence):
+    scores = {action: expected_utility(model, evidence, action) for action in ACTIONS}
+    return max(scores, key=scores.get), scores

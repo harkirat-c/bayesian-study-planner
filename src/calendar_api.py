@@ -1,11 +1,6 @@
-"""
-Google Calendar integration.
+"""Google Calendar integration (Week 12).
 
-Handles the OAuth flow (credentials.json -> token.json, both gitignored)
-and writes the chosen action to the calendar:
-  - create a study block event of the right length, or
-  - clear existing study events for a rest day
-
-Includes a dry-run mode so the rest of the system can be tested without
-touching a real calendar.
+OAuth flow (credentials.json -> token.json, both gitignored), then write the
+chosen action: a study block of the right length, or a cleared day for a rest
+day. Dry-run mode so the rest of the system can be tested offline.
 """

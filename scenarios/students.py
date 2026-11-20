@@ -1,11 +1,11 @@
-"""
-Simulated student scenarios.
+"""Simulated student scenarios (Week 12).
 
-Each scenario is a set of evidence values for the network (concept
-difficulties, mastery, stress, days until exam) used to show the system
-adapting its choice:
+Evidence sets that show the planner adapting:
 
-  - struggling_student: low mastery, hard concepts, exam close
-  - advanced_student:   high mastery, easier concepts, exam further away
-  - burnt_out_student:  decent mastery but very high stress (expect a rest day)
+  - struggling: hard concepts, low mastery, exam imminent
+  - advanced:   easy concepts, high mastery, exam far off
+  - burnt_out:  high mastery but an imminent exam
+
+Stress cannot be set as evidence here - docs/inference-task.md explains why.
+src/main.py holds the first two for now.
 """

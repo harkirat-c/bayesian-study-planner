@@ -1,10 +1,8 @@
 """Inference over the Bayesian network.
 
-Uses pgmpy's Variable Elimination to get the joint posterior over Success and
-Stress. Those two are exactly the arguments of the utility function, and since
-Stress is a parent of Success they are dependent, so the joint is needed and
-the separate marginals would not do. docs/inference-task.md states the task in
-full.
+pgmpy's Variable Elimination, returning the joint posterior over Success and
+Stress - the two arguments of the utility function. docs/inference-task.md
+covers the task in full.
 """
 
 from bayes_net import build_model
