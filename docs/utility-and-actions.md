@@ -97,3 +97,48 @@ Why they split:
 
 Both margins are about 2.3 points, on a scale where the three actions span 25
 to 70 points. The runner-up is close in each case — see below.
+
+## Sensitivity
+
+The margins are about 2.3 points, so it matters how far the weights can move
+before the answer changes. Two knobs, both measured against the committed
+table.
+
+**Stress weight.** Scale every stress penalty by `k`, where `k = 1` is the
+committed table:
+
+| `k` | struggling | advanced |
+| --- | --- | --- |
+| below 0.37 | `intense` | `light` |
+| 0.37 to 1.41 | `intense` | `rest` |
+| above 1.41 | `light` | `rest` |
+
+The committed `k = 1` sits inside that middle band. Stress would have to hurt
+41% more before the struggling student gets told to take it easy, or
+matter less than about a third as much before the advanced student gets a
+light review instead of a day off.
+
+**Success weight.** Add `g` to every pass cell and leave the fail row alone:
+
+- struggling flips `intense` → `light` at `g ≈ -23`. If passing were worth
+  23 points less, cramming stops being worth the stress it costs.
+- advanced flips `rest` → `light` at `g ≈ +133`. Passing would have to be
+  worth more than twice what it is now before the extra 0.017 of `P(pass)` from
+  a light review beats the calm of a rest day.
+
+So the struggling student's intense day is the more fragile call, and the
+advanced student's rest day is robust to how much you value passing but
+sensitive to how much you penalise stress. Both hold under any sane reading of
+the weights.
+
+### Does the joint actually matter?
+
+[inference-task.md](inference-task.md) queries `Success` and `Stress` jointly
+because they're dependent, and the utility table above is non-separable. Both
+still true. The measured effect, though, is small: computing EU from the
+product of the marginals instead shifts it by at most **0.249**, against
+margins of about 2.3, and picks the same action for both students.
+
+So the joint is the correct input and it's free — `query()` already returns it
+— but in this model the dependence is too weak to change a decision. Better to
+say that than to overclaim it.
