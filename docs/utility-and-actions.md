@@ -47,5 +47,53 @@ turns out to be worth in practice.
 
 ## Expected utility
 
-_Week 11._ How each action's expected utility comes out of the joint
-posterior described in [inference-task.md](inference-task.md).
+For each action, run inference with that action as evidence and average the
+utility over the six outcomes it can lead to:
+
+```
+EU(a) = Σ  P(Success = s, Stress = t | evidence, Action = a) · U(s, t)
+       s,t
+```
+
+Code: [src/decision.py](../src/decision.py). `decide()` does this for all three
+actions and returns the winner along with all three scores, so the comparison
+can be shown and not just the answer.
+
+### Worked example: struggling student, `intense`
+
+| Outcome | P | U | P × U |
+| --- | --- | --- | --- |
+| `pass`, `low` | 0.0889 | 100 | +8.89 |
+| `pass`, `med` | 0.2036 | 88 | +17.92 |
+| `pass`, `high` | 0.1744 | 70 | +12.21 |
+| `fail`, `low` | 0.0611 | 20 | +1.22 |
+| `fail`, `med` | 0.1964 | 0 | +0.00 |
+| `fail`, `high` | 0.2756 | -20 | -5.51 |
+| | | **EU** | **34.72** |
+
+The two high-stress cells are what hold this down: they carry 45% of the
+probability, and scoring that same mass at low stress instead would add 16.3
+points.
+
+### Results
+
+| Student | `intense` | `light` | `rest` | picks |
+| --- | --- | --- | --- | --- |
+| struggling | **34.72** | 32.41 | 9.38 | `intense`, +2.31 |
+| advanced | 55.54 | 78.87 | **81.16** | `rest`, +2.29 |
+
+```bash
+python3 -W ignore src/main.py
+```
+
+Why they split:
+
+- The struggling student's exam is imminent and they're unprepared. Intense
+  study is the only thing that moves `P(pass)` much — 0.467 against 0.221 for
+  a rest day — and that's worth the stress it costs.
+- The advanced student is already prepared with the exam far off. Five hours
+  barely moves their preparedness but burns them out, so the model takes the
+  calm instead.
+
+Both margins are about 2.3 points, on a scale where the three actions span 25
+to 70 points. The runner-up is close in each case — see below.
