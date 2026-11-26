@@ -5,6 +5,9 @@ Stress - the two arguments of the utility function. docs/inference-task.md
 covers the task in full.
 """
 
+import sys
+from pathlib import Path
+
 from bayes_net import build_model
 from pgmpy.inference import VariableElimination
 
@@ -15,26 +18,11 @@ def query(model, evidence):
 
 
 if __name__ == "__main__":
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scenarios"))
+    from students import STUDENTS
+
     model = build_model()
-
-    struggling = {
-        "D1": "hard",
-        "D2": "hard",
-        "D3": "hard",
-        "Mastery": "low",
-        "Days": "imminent",
-        "Action": "intense",
-    }
-    advanced = {
-        "D1": "easy",
-        "D2": "easy",
-        "D3": "easy",
-        "Mastery": "high",
-        "Days": "far",
-        "Action": "intense",
-    }
-
-    for name, evidence in (("struggling", struggling), ("advanced", advanced)):
+    for name in ("struggling", "advanced"):
         print(f"{name} student, Action=intense")
-        print(query(model, evidence))
+        print(query(model, {**STUDENTS[name], "Action": "intense"}))
         print()

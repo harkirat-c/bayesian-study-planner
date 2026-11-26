@@ -21,13 +21,14 @@ Assignment brief: [project-description.md](docs/project-description.md)
 Everything except the calendar works:
 
 ```bash
-python3 -W ignore src/main.py         # both students, expected utility, the pick
-python3 -W ignore src/bayes_net.py    # structure + CPTs
-python3 -W ignore src/inference.py    # P(Success, Stress) for two students
+python3 -W ignore scenarios/run_scenarios.py   # all five scenarios, side by side
+python3 -W ignore src/main.py                  # one scenario in full
+python3 -W ignore src/bayes_net.py             # structure + CPTs
+python3 -W ignore src/inference.py             # P(Success, Stress) for two students
 ```
 
-`-W ignore` hides an unrelated pgmpy warning. The calendar and the scenario
-files are still stubs — see the plan below.
+`-W ignore` hides an unrelated pgmpy warning. The calendar is still a stub —
+see the plan below.
 
 ## Layout
 
