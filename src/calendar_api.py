@@ -1,9 +1,10 @@
 """Google Calendar integration.
 
 Maps an exam date to the Days state, and turns a chosen action into a calendar
-event body: a study block of the right length, or an all-day marker for a rest
-day. Every event is tagged so planner events stay identifiable. Nothing is ever
-deleted.
+event: a study block of the right length, or an all-day marker for a rest day.
+Every event is tagged so planner events stay identifiable. Events are only ever
+inserted, never deleted, and add_event() stays in dry-run mode unless told
+otherwise.
 
 The Google libraries are imported inside build_service() so the decision layer
 and the frontend still run without them installed and without credentials.
@@ -75,10 +76,18 @@ def build_service():
     return build("calendar", "v3", credentials=creds)
 
 
+def add_event(action, exam_date, day=None, dry_run=True):
+    body = event_for(action, exam_date, day)
+    if dry_run:
+        return body
+    return build_service().events().insert(calendarId="primary", body=body).execute()
+
+
 if __name__ == "__main__":
     import json
 
     today = date.today()
     exam = today + timedelta(days=5)
+    print(f"DRY RUN - nothing is sent. exam {exam} ({days_bucket(exam, today)})\n")
     for action in ("intense", "light", "rest"):
-        print(json.dumps(event_for(action, exam, today), indent=2))
+        print(json.dumps(add_event(action, exam, today), indent=2))
